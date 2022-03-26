@@ -50,7 +50,6 @@ def register():
         user = User(
             name=form.name.data,
             email=form.email.data,
-            tel=form.tel.data,
             inst=form.inst.data,
             vk=form.vk.data,
             tasks=0,
