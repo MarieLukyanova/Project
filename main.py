@@ -5,7 +5,8 @@ from flask import render_template, redirect, request, make_response, session, ab
 from data import db_session
 from data.users import User
 from forms.user import RegisterForm, LoginForm, EditForm
-from flask_login import LoginManager, login_required, current_user
+from flask_login import LoginManager, login_required, current_user, \
+    logout_user, login_user
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'yandexlyceum_secret_key'
@@ -29,6 +30,7 @@ def index():
 
 
 @app.route("/profile")
+@login_required
 def profile():
     return render_template('Profile.html')
 
@@ -51,14 +53,13 @@ def register():
             name=form.name.data,
             email=form.email.data,
             inst=form.inst.data,
-            vk=form.vk.data,
-            tasks=0,
-            about=''
+            telegram=form.telegram.data,
+            vk=form.vk.data
         )
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
-        return redirect('/profile')
+        return redirect('/login')
     return render_template('Регистрация.html', title='Регистрация', form=form)
 
 
@@ -95,23 +96,33 @@ def login():
         db_sess = db_session.create_session()
         user = db_sess.query(User).filter(User.email == form.email.data).first()
         if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember_me.data)
             return redirect("/profile")
         return render_template('Авторизация.html', title='Авторизация', email=request.form['email'],
                                password=request.form['password'], submit=request.form['submit'],
                                message="Неправильный логин или пароль", form=form)
     return render_template('Авторизация.html', title='Авторизация', form=form)
 
-@app.route('/pofileedit/<int:id>', methods=['GET', 'POST'])
+
+@app.route('/logout')
 @login_required
-def edit_pofile(id):
+def logout():
+    logout_user()
+    return redirect("/")
+
+
+
+@app.route('/pofileedit', methods=['GET', 'POST'])
+@login_required
+def edit_pofile():
     form = EditForm()
     if request.method == "GET":
         db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.id == id).first()
+        user = db_sess.query(User).get(current_user.id)
         if user:
             form.name.data = user.name
             form.email.data = user.email
-            form.tel.data = user.tel
+            form.telegram.data = user.telegram
             form.inst.data = user.inst
             form.vk.data = user.vk
             form.about.data = user.about
@@ -119,19 +130,19 @@ def edit_pofile(id):
             abort(404)
     if form.validate_on_submit():
         db_sess = db_session.create_session()
-        user = db_sess.query(User).filter(User.id == id).first()
+        user = db_sess.query(User).get(current_user.id)
         if user:
-            form.name.data = user.name
-            form.email.data = user.email
-            form.tel.data = user.tel
-            form.inst.data = user.inst
-            form.vk.data = user.vk
-            form.about.data = user.about
+            user.name = form.name.data
+            user.email = form.email.data
+            user.telegram = form.telegram.data
+            user.inst = form.inst.data
+            user.vk = form.vk.data
+            user.about = form.about.data
             db_sess.commit()
             return redirect('/profile')
         else:
             abort(404)
-    return render_template('',
+    return render_template('Редактирование.html',
                            title='Редактирование профиля',
                            form=form)
 

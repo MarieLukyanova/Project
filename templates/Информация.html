@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Душа Компании. Подробнее</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <style>
-        #hello{
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("../data/images/вступление.jpg");
-            background-repeat: no-repeat;
-            background-size: cover;
+        html{
+            background: -webkit-linear-gradient(30deg, #ffffff,#fbfeb4,#ffb5b5);
+            background: linear-gradient(30deg, #ffffff,#fbfeb4,#ffb5b5);
         }
         .title{
             text-align: center;
             width: 70%;
             left: 15%;
-            top: 17%;
+            top: 15%;
             position: absolute;
             margin-top: -20px;
             font-size: 150%;
         }
+        .button.ideal {
+            background: #ff0000;
+            top: 42%;
+            left: 15%;
+            height: 75px;
+            width: 75px;
+            border: none;
+            outline: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 50%;
+            position: absolute;
+            font-size: 9px;
+        }
         .ideal{
             width:33%;
-            top: 45%;
+            top: 52%;
             position: absolute;
             margin-top: -20px;
             font-size: 100%;
@@ -33,9 +42,23 @@
         .ideal h4{
             text-align: center;
         }
+        .button.program {
+            background: #ff0000;
+            top: 42%;
+            left: 48%;
+            height: 75px;
+            width: 75px;
+            border: none;
+            outline: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 50%;
+            position: absolute;
+            font-size: 9px;
+        }
         .program{
-            width:33%;
-            top: 45%;
+            width: 33%;
+            top: 52%;
             left: 33%;
             position: absolute;
             margin-top: -20px;
@@ -44,9 +67,23 @@
          .program h4{
             text-align: center;
         }
+        .button.analysis {
+            background: #ff0000;
+            top: 42%;
+            left: 81%;
+            height: 75px;
+            width: 75px;
+            border: none;
+            outline: none;
+            display: inline-block;
+            cursor: pointer;
+            border-radius: 50%;
+            position: absolute;
+            font-size: 9px;
+        }
         .analysis{
             width:33%;
-            top: 45%;
+            top: 52%;
             left: 67%;
             position: absolute;
             margin-top: -20px;
@@ -55,7 +92,7 @@
          .analysis h4{
             text-align: center;
         }
-        .button {
+        .button.purple {
             border: none;
             outline: none;
             display: inline-block;
@@ -67,12 +104,9 @@
             padding: 12px 16px;
             border-radius: 100px;
             color: #fff;
-            top: 60%;
             position: absolute;
-        }
-        .button.purple {
-            background: #9b59b6;
-            top: 65%;
+            background: #6b0a4b;
+            top: 77%;
             left: 45%;
             width: 150px;
         }
@@ -89,26 +123,34 @@
                         <div class="line-separator"></div>
                     </div>
                 </div>
-                <div class="col-md-4 content-block">
-                    <div class="ideal">
-                        <i class="fa fa-diamond circle-icon-block circle-icon-block-lg"></i>
-                        <h4>Вы станете лучше</h4>
-                        <p>Мы поможем Вам стать более общительным и не бояться толпы</p>
-                    </div>
+                <button class="button ideal" disabled>
+                    <p></p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" color="#fff" fill="currentColor" class="bi bi-gem" viewBox="0 0 16 16">
+                        <path d="M3.1.7a.5.5 0 0 1 .4-.2h9a.5.5 0 0 1 .4.2l2.976 3.974c.149.185.156.45.01.644L8.4 15.3a.5.5 0 0 1-.8 0L.1 5.3a.5.5 0 0 1 0-.6l3-4zm11.386 3.785-1.806-2.41-.776 2.413 2.582-.003zm-3.633.004.961-2.989H4.186l.963 2.995 5.704-.006zM5.47 5.495 8 13.366l2.532-7.876-5.062.005zm-1.371-.999-.78-2.422-1.818 2.425 2.598-.003zM1.499 5.5l5.113 6.817-2.192-6.82L1.5 5.5zm7.889 6.817 5.123-6.83-2.928.002-2.195 6.828z"/>
+                    </svg>
+                </button>
+                <div class="ideal">
+                    <h4>Вы станете лучше</h4>
+                    <p>Мы поможем Вам стать более общительным и не бояться толпы</p>
                 </div>
-                <div class="col-md-4 content-block">
-                    <div class="program">
-                        <i class="fa fa-code circle-icon-block circle-icon-block-lg"></i>
-                        <h4>Программа</h4>
-                        <p>Мы разработали программу, состоящую из некоторых заданий, которые приведут нас к нашей цели</p>
-                    </div>
+                <button class="button program" disabled>
+                    <p></p>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" color="#fff" fill="currentColor" class="bi bi-list-check" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M5 11.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3.854 2.146a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 3.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708L2 7.293l1.146-1.147a.5.5 0 0 1 .708 0zm0 4a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                </button>
+                <div class="program">
+                    <h4>Программа</h4>
+                    <p>Мы разработали программу, состоящую из некоторых заданий, которые приведут нас к нашей цели</p>
                 </div>
-                <div class="col-md-4 content-block">
-                    <div class="analysis" style="height: 202px;">
-                        <i class="fa fa-bar-chart circle-icon-block circle-icon-block-lg"></i>
-                            <h4>Анализ</h4>
-                            <p>Мы диагностируем выполненные вами задания и предоставляем вам информацию в виде диаграммы</p>
-                    </div>
+                <button class="button analysis" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" color="#fff" fill="currentColor" class="bi bi-graph-up" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M0 0h1v15h15v1H0V0Zm14.817 3.113a.5.5 0 0 1 .07.704l-4.5 5.5a.5.5 0 0 1-.74.037L7.06 6.767l-3.656 5.027a.5.5 0 0 1-.808-.588l4-5.5a.5.5 0 0 1 .758-.06l2.609 2.61 4.15-5.073a.5.5 0 0 1 .704-.07Z"/>
+                    </svg>
+                </button>
+                <div class="analysis">
+                    <h4>Анализ</h4>
+                    <p>Мы диагностируем выполненные вами задания и предоставляем вам информацию в виде диаграммы</p>
                 </div>
                 <form action="/" method="GET">
                     <button class="button purple">

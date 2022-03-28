@@ -61,14 +61,10 @@
           font-weight: bold;
         }
 
-        .profile-nav-info .address {
+        .profile-nav-info . {
           display: flex;
           font-weight: bold;
           color: #777;
-        }
-
-        .profile-nav-info .address p {
-          margin-right: 5px;
         }
 
         .main-bd {
@@ -98,13 +94,9 @@
           margin-right: 10px;
         }
 
-        .mobile-no i {
-          transform: rotateY(180deg);
-          color: #e40046;
-        }
-
-        .profile-btn {
+        .profile-btn form {
           display: flex;
+          width: 100%;
         }
 
         button.fixbtn {
@@ -138,6 +130,7 @@
 
         .profile-body {
           width: 100%;
+          margin-top: 20px;
           z-index: -1;
         }
 
@@ -168,33 +161,19 @@
         @media (max-width: 900px) {
           body {
             margin: 0 20px;
+            width: 280px;
           }
 
           .profile-header {
             display: flex;
-            height: 100%;
             flex-direction: column;
             text-align: center;
             padding-bottom: 20px;
           }
 
-          .profile-img {
-            float: left;
-            width: 100%;
-            height: 200px;
-          }
-
-          .profile-img img {
-            position: relative;
-            height: 200px;
-            width: 200px;
-            left: 0px;
-          }
-
           .profile-nav-info {
             text-align: center;
           }
-
 
           .main-bd {
             flex-direction: column;
@@ -202,14 +181,9 @@
           }
 
           .profile-side {
-            width: 100%;
             text-align: center;
             padding: 20px;
             margin: 5px 0;
-          }
-
-          .profile-nav-info .address {
-            justify-content: center;
           }
 
           .user-rating {
@@ -219,7 +193,7 @@
 
         @media (max-width: 400px) {
           body {
-            margin: ;
+            margin: 20px;
           }
 
           .profile-header h3 {
@@ -246,7 +220,58 @@
           justify-content: center;
           margin: 20px auto;
         }
+        @property --p{
+          syntax: '<number>';
+          inherits: true;
+          initial-value: 0;
+        }
 
+        .pie {
+          --p:20;
+          --b:22px;
+          --c:darkred;
+          --w:150px;
+          width:var(--w);
+          aspect-ratio:1;
+          position:relative;
+          display:inline-grid;
+          margin:5px;
+          place-content:center;
+          font-size:25px;
+          font-weight:bold;
+          font-family:sans-serif;
+        }
+        .pie:before,
+        .pie:after {
+          content:"";
+          position:absolute;
+          border-radius:50%;
+        }
+        .pie:before {
+          inset:0;
+          background:
+            radial-gradient(farthest-side,var(--c) 98%,#0000) top/var(--b) var(--b) no-repeat,
+            conic-gradient(var(--c) calc(var(--p)*1%),#0000 0);
+          -webkit-mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+                  mask:radial-gradient(farthest-side,#0000 calc(99% - var(--b)),#000 calc(100% - var(--b)));
+        }
+        .pie:after {
+          inset:calc(50% - var(--b)/2);
+          background:var(--c);
+          transform:rotate(calc(var(--p)*3.6deg)) translateY(calc(50% - var(--w)/2));
+        }
+        .animate {
+          animation:p 1s .5s both;
+        }
+        .no-round:before {
+          background-size:0 0,auto;
+        }
+        .no-round:after {
+          content:none;
+        }
+        @keyframes p {
+          from{--p:0}
+        }
     </style>
 </head>
 <body>
@@ -256,30 +281,29 @@
                 <img src="./bg.jpg" width="200" alt="Profile Image">
             </div>
             <div class="profile-nav-info">
-                <h3 class="user-name">{{name}}</h3>
+                <h3 class="user-name">{{current_user.name}}</h3>
             </div>
         </div>
         <div class="main-bd">
             <div class="left-side">
                 <div class="profile-side">
-                    <p class="mobile-no"><i class="fa fa-phone">{{phone}}</i></p>
-                    <p class="user-mail"><i class="fa fa-envelope">{{mail}}</i></p>
+                    <p class="user-mail"><i class="fa fa-envelope">{{current_user.email}}</i></p>
                     <div class="user-bio">
-                        <h3>Инф-ция</h3>
-                        <p class="bio">{{about}}</p>
+                        <h3>Информация</h3>
+                        <p class="bio">{{current_user.about}}</p>
                     </div>
                     <div class="profile-btn">
-                        <button class="fixbtn"><i class="fa fa-plus"><b>Редактировать</b></i></button>
+                        <form action="/pofileedit" method="get">
+                            <button class="fixbtn"><i class="fa fa-plus"><b>Редактировать</b></i></button>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="right-side">
-            <div class="pie" style="--p:20"> 20%</div>
-            <div class="pie" style="--p:40;--c:darkblue;--b:10px"> 40%</div>
-            <div class="pie no-round" style="--p:60;--c:purple;--b:15px"> 60%</div>
-            <div class="pie animate no-round" style="--p:80;--c:orange;"> 80%</div>
-            <div class="pie animate" style="--p:90;--c:lightgreen"> 90%</div>
+            <div class="right-side">
+                <div class="profile-body">
+                    <div class="pie animate" style="--p:90;--c:#32127a"></div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

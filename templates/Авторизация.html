@@ -131,6 +131,7 @@
             width: 260px;
             align: center;
             position: center;
+        }
 
         #login-form fieldset form button:hover {
             background-color: #e0e0e0;
@@ -148,7 +149,7 @@
             width: 20px;
         }
         #login-form fieldset form span {
-            font-size: 12px;
+            font-size: 18px;
             margin-top: 40px;
         }
         #login-form fieldset form span a{
@@ -165,10 +166,29 @@
     <div id="login-form">
         <h1>АВТОРИЗАЦИЯ</h1>
         <fieldset>
-            <form action="../main.py" method="GET">
-                <input type="email" name="email" id="email" required value="E-mail" onBlur="if(this.value=='')this.value='E-mail'" onFocus="if(this.value=='E-mail')this.value='' ">
-                <input type="password" name="password" id="password" required value="Пароль" onBlur="if(this.value=='')this.value='Пароль'" onFocus="if(this.value=='Пароль')this.value='' ">
-                <input type="submit" name="submit" value="ВОЙТИ">
+            <form action="" method="post">
+                {{ form.hidden_tag() }}
+                <p>
+                    {{ form.email.label }}<br>
+                    {{ form.email(class="form-control", type="email") }}<br>
+                    {% for error in form.email.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </p>
+                <p>
+                    {{ form.password.label }}<br>
+                    {{ form.password(class="form-control", type="password") }}<br>
+                    {% for error in form.password.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+                </p>
+                <p>{{ form.remember_me() }} {{ form.remember_me.label }}</p>
+                <p>{{ form.submit(type="submit", class="btn btn-primary") }}</p>
+                <div>{{ message }}</div>
             </form>
             <form action="/register">
                 <button>
