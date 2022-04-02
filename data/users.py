@@ -17,7 +17,14 @@ class User(SqlAlchemyBase, UserMixin):
     hashed_password = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     inst = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     vk = sqlalchemy.Column(sqlalchemy.String, nullable=True)
-    tasks = sqlalchemy.Column(sqlalchemy.Integer, nullable=True)
+    vk_friends = sqlalchemy.Column(sqlalchemy.Integer, nullable=True, default=0)
+    vk_photos = sqlalchemy.Column(sqlalchemy.Integer, nullable=True, default=0)
+    telegram = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    tasks = sqlalchemy.Column(sqlalchemy.Integer, nullable=True, default=0)
+    scores = sqlalchemy.Column(sqlalchemy.REAL, nullable=True, default=0)
+    progress = sqlalchemy.Column(sqlalchemy.INT, nullable=True, default=0)
+    photo = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    about = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='')
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
 

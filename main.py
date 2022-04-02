@@ -1,9 +1,11 @@
 import datetime
+import os
 
 from flask import Flask
 from flask import render_template, redirect, request, make_response, session, abort
 from data import db_session
 from data.users import User
+from data.vk import Friends, Photos, ID
 from forms.user import RegisterForm, LoginForm, EditForm
 from flask_login import LoginManager, login_required, current_user, \
     logout_user, login_user
@@ -15,8 +17,6 @@ app.config['PERMANENT_SESSION_LIFETIME'] = datetime.timedelta(
 )
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -32,7 +32,15 @@ def index():
 @app.route("/profile")
 @login_required
 def profile():
-    return render_template('Profile.html')
+    if current_user.progress == 0:
+        percent = 100
+    else:
+        percent = current_user.progress
+    if current_user.photo:
+        photo = current_user.photo
+    else:
+        photo = 'https://acewebcontent.azureedge.net/GettyImages-542291608.jpg'
+    return render_template('Profile.html', progress=percent, avatar=photo)
 
 @app.route("/info")
 def info():
@@ -49,19 +57,25 @@ def register():
         if db_sess.query(User).filter(User.email == form.email.data).first():
             return render_template('Регистрация.html', title='Регистрация', form=form,
                                    message='Этот пользователь уже зарегестрирован')
+        id = form.vk.data
+        if id.isdigit():
+            id = int(id)
+        else:
+            id = ID(id)
         user = User(
             name=form.name.data,
             email=form.email.data,
             inst=form.inst.data,
             telegram=form.telegram.data,
-            vk=form.vk.data
+            vk=id,
+            vk_friends=Friends(id),
+            vk_photos=Photos(id)
         )
         user.set_password(form.password.data)
         db_sess.add(user)
         db_sess.commit()
         return redirect('/login')
     return render_template('Регистрация.html', title='Регистрация', form=form)
-
 
 
 @app.route("/cookie_test")
@@ -111,7 +125,6 @@ def logout():
     return redirect("/")
 
 
-
 @app.route('/pofileedit', methods=['GET', 'POST'])
 @login_required
 def edit_pofile():
@@ -124,7 +137,7 @@ def edit_pofile():
             form.email.data = user.email
             form.telegram.data = user.telegram
             form.inst.data = user.inst
-            form.vk.data = user.vk
+            form.vk.data = user.vk_screen_name
             form.about.data = user.about
         else:
             abort(404)
@@ -136,7 +149,7 @@ def edit_pofile():
             user.email = form.email.data
             user.telegram = form.telegram.data
             user.inst = form.inst.data
-            user.vk = form.vk.data
+            user.vk_screen_name = form.vk.data
             user.about = form.about.data
             db_sess.commit()
             return redirect('/profile')
@@ -145,6 +158,21 @@ def edit_pofile():
     return render_template('Редактирование.html',
                            title='Редактирование профиля',
                            form=form)
+
+
+@app.route('/add_photo', methods=['POST', 'GET'])
+def add_photo():
+    if request.method == 'GET':
+        return render_template('Add_photo.html')
+    elif request.method == 'POST':
+        db_sess = db_session.create_session()
+        user = db_sess.query(User).get(current_user.id)
+        if user:
+            file = request.files['file']
+            file.save(os.path.join(f"/data/users/{user.id}"))
+            user.photo = f"/data/users/{user.id}"
+            db_sess.commit()
+        return redirect('/profile')
 
 
 def main():

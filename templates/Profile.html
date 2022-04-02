@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Мой профиль</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <style>
         * {
           padding: 0;
@@ -45,6 +46,18 @@
           z-index: 5;
           background: #fff;
         }
+        .profile-img button {
+          border-radius: 50%;
+          height: 230px;
+          width: 230px;
+          border: 5px solid #fff;
+          box-shadow: 0px 5px 10px rgba(0, 0, 0, 0);
+          position: absolute;
+          left: 50px;
+          top: 20px;
+          z-index: 5;
+          background: rgba(255, 255, 255, 0);
+        }
 
         .profile-nav-info {
           float: left;
@@ -83,10 +96,17 @@
           z-index: 99;
         }
 
+        .profile-side h3 {
+          font-family: "Bree Serif", serif;
+          font-weight: bold;
+          color: #fff
+        }
+
         .profile-side p {
           margin-bottom: 7px;
           color: #333;
           font-size: 14px;
+          width: 260px;
         }
 
         .profile-side p i {
@@ -131,6 +151,7 @@
         .profile-body {
           width: 100%;
           margin-top: 20px;
+          margin-left: 20px;
           z-index: -1;
         }
 
@@ -194,40 +215,35 @@
         @media (max-width: 400px) {
           body {
             margin: 20px;
-          }
-
-          .profile-header h3 {
+            width: 20px;
           }
 
           .profile-nav-info h3 {
             font-size: 1.9rem;
           }
 
-          .profile-nav-info .address p,
-          .profile-nav-info .address span {
-            font-size: 0.7rem;
           }
-        }
-        #see-more-bio,
-        #see-less-bio {
-          color: blue;
-          cursor: pointer;
-          text-transform: lowercase;
-        }
-        .tab h1 {
-          font-family: "Bree Serif", sans-serif;
-          display: flex;
-          justify-content: center;
-          margin: 20px auto;
-        }
+            #see-more-bio,
+            #see-less-bio {
+              color: blue;
+              cursor: pointer;
+              text-transform: lowercase;
+          }
+
+          .tab h1 {
+              font-family: "Bree Serif", sans-serif;
+              display: flex;
+              justify-content: center;
+              margin: 20px auto;
+          }
         @property --p{
-          syntax: '<number>';
-          inherits: true;
-          initial-value: 0;
+            syntax: '<number>';
+            inherits: true;
+            initial-value: 0;
         }
 
         .pie {
-          --p:20;
+          --p:{{progress}};
           --b:22px;
           --c:darkred;
           --w:150px;
@@ -278,16 +294,29 @@
     <div class="container">
         <div class="profile-header">
             <div class="profile-img">
-                <img src="./bg.jpg" width="200" alt="Profile Image">
+                <form action="/add_photo" method="get">
+                    <img src={{avatar}} width="200" alt="Profile Image">
+                    <button></button>
+                </form>
             </div>
             <div class="profile-nav-info">
                 <h3 class="user-name">{{current_user.name}}</h3>
+                <p>{{current_user.scores}}</p>
             </div>
         </div>
         <div class="main-bd">
             <div class="left-side">
                 <div class="profile-side">
                     <p class="user-mail"><i class="fa fa-envelope">{{current_user.email}}</i></p>
+                    <div class="dropdown show">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Ваши ники в соц. сетях
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <p>fghjk</p>
+                            <p>xcvbnm,</p>
+                        </div>
+                    </div>
                     <div class="user-bio">
                         <h3>Информация</h3>
                         <p class="bio">{{current_user.about}}</p>
@@ -301,7 +330,23 @@
             </div>
             <div class="right-side">
                 <div class="profile-body">
-                    <div class="pie animate" style="--p:90;--c:#32127a"></div>
+                    <p>Ваш прогресс в выполнении заданий</p>
+                    {% if current_user.progress == 0%}
+                        <div class="pie animate" style="--p:100));--c:#ff0000">0%</div>
+                        <p>Самое время начать!</p>
+                    {% elif current_user.progress == 25 %}
+                        <div class="pie animate" style="--p:25));--c:#32127a">{{current_user.progress}}%</div>
+                        <p>Главное - первый шаг!</p>
+                    {% elif current_user.progress == 50 %}
+                        <div class="pie animate" style="--p:50);--c:#19e0bc">{{current_user.progress}}%</div>
+                        <p>Прекрасный результат!</p>
+                    {% elif current_user.progress == 75 %}
+                        <div class="pie animate" style="--p:75));--c:#00ff00">{{current_user.progress}}%</div>
+                        <p>Осталось ещё совсем чуть-чуть!</p>
+                    {% elif current_user.progress == 100 %}
+                        <div class="pie animate" style="--p:100));--c:#00ff00">{{current_user.progress}}%</div>
+                        <p>Ты сделал это! Мы гордимся тобой!</p>
+                    {% endif %}
                 </div>
             </div>
         </div>
