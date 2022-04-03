@@ -5,7 +5,7 @@ from flask import Flask
 from flask import render_template, redirect, request, make_response, session, abort
 from data import db_session
 from data.users import User
-from data.vk import Friends, Photos, ID
+from data.vk import Friends, Photos, ID, Avatar
 from forms.user import RegisterForm, LoginForm, EditForm
 from flask_login import LoginManager, login_required, current_user, \
     logout_user, login_user
@@ -69,7 +69,8 @@ def register():
             telegram=form.telegram.data,
             vk=id,
             vk_friends=Friends(id),
-            vk_photos=Photos(id)
+            vk_photos=Photos(id),
+            photo=Avatar(id)
         )
         user.set_password(form.password.data)
         db_sess.add(user)
