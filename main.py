@@ -178,7 +178,8 @@ def add_photo():
 
 def main():
     db_session.global_init('db/life_of_party.sqlite')
-    app.run()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
 
 
 if __name__ == '__main__':
