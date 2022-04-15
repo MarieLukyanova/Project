@@ -10,7 +10,7 @@ class RegisterForm(FlaskForm):
     email = EmailField('Почта', validators=[DataRequired()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     password_again = PasswordField('Повторите пароль', validators=[DataRequired()])
-    inst = URLField('Instagram', validators=[DataRequired()])
+    inst = StringField('Instagram', validators=[DataRequired()])
     vk = StringField('Вконтакте\n(короткое имя или id)', validators=[DataRequired()])
     telegram = StringField('Telegram', validators=[DataRequired()])
     submit = SubmitField('ЗАРЕГИСТРИРОВАТЬСЯ', validators=[DataRequired()])

@@ -5,7 +5,7 @@ from flask import Flask
 from flask import render_template, redirect, request, make_response, session, abort
 from data import db_session
 from data.users import User
-from data.vk import Friends, Photos, ID, Avatar
+from data.vk import Friends, Photos, ID, Avatar, Name
 from forms.user import RegisterForm, LoginForm, EditForm
 from flask_login import LoginManager, login_required, current_user, \
     logout_user, login_user
@@ -40,7 +40,7 @@ def profile():
         photo = current_user.photo
     else:
         photo = 'https://acewebcontent.azureedge.net/GettyImages-542291608.jpg'
-    return render_template('Profile.html', progress=percent, avatar=photo)
+    return render_template('Profile.html', progress=percent, avatar=photo, vk_name=Name(current_user.vk))
 
 @app.route("/info")
 def info():
@@ -138,7 +138,7 @@ def edit_pofile():
             form.email.data = user.email
             form.telegram.data = user.telegram
             form.inst.data = user.inst
-            form.vk.data = user.vk_screen_name
+            form.vk.data = user.vk
             form.about.data = user.about
         else:
             abort(404)
@@ -150,7 +150,7 @@ def edit_pofile():
             user.email = form.email.data
             user.telegram = form.telegram.data
             user.inst = form.inst.data
-            user.vk_screen_name = form.vk.data
+            user.vk = form.vk.data
             user.about = form.about.data
             db_sess.commit()
             return redirect('/profile')
