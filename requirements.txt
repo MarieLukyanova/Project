@@ -1,0 +1,6 @@
+flask
+flask_login
+os
+datetime
+sqlalchemy
+vk_api
