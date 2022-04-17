@@ -207,6 +207,14 @@
             margin: 5px 0;
           }
 
+          .profile-option {
+            width: 30px;
+            height: 30px;
+            position: absolute;
+            right: 15px;
+            top: 83%;
+          }
+
           .user-rating {
             justify-content: center;
           }
@@ -302,6 +310,19 @@
             <div class="profile-nav-info">
                 <h3 class="user-name">{{current_user.name}}</h3>
                 <p>{{current_user.scores}}</p>
+            </div>
+            <div class="profile-option">
+                <div class="dropdown show">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Telegram-бот
+                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                            <span class="visually-hidden">Новые уведомления</span>
+                        </span>
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <p>@{{vk_name}}</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="main-bd">
