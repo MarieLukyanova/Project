@@ -80,6 +80,59 @@
           color: #777;
         }
 
+        .profile-option {
+          width: 40px;
+          height: 40px;
+          position: absolute;
+          right: 50px;
+          top: 50%;
+          transform: translateY(-50%);
+          border-radius: 50%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: all 0.5s ease-in-out;
+          outline: none;
+          background: #e40046;
+        }
+
+        .profile-option:hover {
+          background: #fff;
+          border: 1px solid #e40046;
+        }
+        .profile-option:hover .notification i {
+          color: #e40046;
+        }
+
+        .profile-option:hover span {
+          background: #e40046;
+        }
+
+        .profile-option .notification i {
+          color: #fff;
+          font-size: 1.2rem;
+          transition: all 0.5s ease-in-out;
+        }
+
+        .profile-option .notification .alert-message {
+          position: absolute;
+          top: -5px;
+          right: -5px;
+          background: #fff;
+          color: #e40046;
+          border: 1px solid #e40046;
+          padding: 5px;
+          border-radius: 50%;
+          height: 20px;
+          width: 20px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: 0.8rem;
+          font-weight: bold;
+        }
+
         .main-bd {
           width: 100%;
           display: flex;
@@ -208,6 +261,7 @@
           }
 
           .profile-option {
+            font-family: "Bree Serif", serif;
             width: 30px;
             height: 30px;
             position: absolute;
@@ -315,13 +369,23 @@
                 <div class="dropdown show">
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Telegram-бот
-                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-                            <span class="visually-hidden"></span>
-                        </span>
+                        {% if current_user.progress == 0%}
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                                <span class="visually-hidden"></span>
+                            </span>
+                        {% elif current_user.progress == 25 %}
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning text-dark border border-light rounded-circle">
+                                <span class="visually-hidden"></span>
+                            </span>
+                        {% elif current_user.progress == 50 %}
+                            <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle">
+                                <span class="visually-hidden"></span>
+                            </span>
+                        {% endif %}
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <p>@{{vk_name}}</p>
-                    </div>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="https://t.me/CHNO_bot">fff</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
