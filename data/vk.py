@@ -17,6 +17,7 @@ def Friends(id):
     return response[0]['counters']['friends']
 
 
+
 def Photos(id):
     vk_session = vk_api.VkApi(
         token='d3c5438ef5dcc87bec92f492246b7f27bdceee7b21d8d59cf6b497a4bf05b657ca764a7605660571ffca1')
