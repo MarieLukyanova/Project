@@ -24,6 +24,7 @@ class User(SqlAlchemyBase, UserMixin):
     scores = sqlalchemy.Column(sqlalchemy.REAL, nullable=True, default=0)
     progress = sqlalchemy.Column(sqlalchemy.INT, nullable=True, default=0)
     photo = sqlalchemy.Column(sqlalchemy.String, nullable=True)
+    telegram_flag = sqlalchemy.Column(sqlalchemy.String, nullable=True)
     about = sqlalchemy.Column(sqlalchemy.String, nullable=True, default='')
     created_date = sqlalchemy.Column(sqlalchemy.DateTime,
                                      default=datetime.datetime.now)
