@@ -4,6 +4,7 @@ import os
 from flask import Flask
 from flask import render_template, redirect, request, make_response, session, abort
 from data import db_session
+from data.db_fun import tel_flag
 from data.users import User
 from data.vk import Friends, Photos, ID, Avatar, Name
 from forms.user import RegisterForm, LoginForm, EditForm
@@ -32,6 +33,18 @@ def index():
 @app.route("/profile")
 @login_required
 def profile():
+    db_sess = db_session.create_session()
+    user = db_sess.query(User).get(current_user.id)
+    f = open('data/inf_tsk.txt')
+    for el in f.readlines():
+        polzovatel = el.split('@')
+        if current_user == polzovatel[0]:
+            user.tasks = int(polzovatel[2])
+            user.scores = int(polzovatel[2]) * 100
+            user.progress = (int(polzovatel[2]) / 4 ) * 100
+            user.telegram_flag = polzovatel[3]
+            break
+    db_sess.commit()
     if current_user.progress == 0:
         percent = 100
     else:
