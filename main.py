@@ -4,7 +4,6 @@ import os
 from flask import Flask
 from flask import render_template, redirect, request, make_response, session, abort
 from data import db_session
-from data.db_fun import tel_flag
 from data.users import User
 from data.vk import Friends, Photos, ID, Avatar, Name
 from forms.user import RegisterForm, LoginForm, EditForm
