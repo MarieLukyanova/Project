@@ -327,15 +327,15 @@
                 <div class="dropdown show">
                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Telegram-бот
-                        {% if current_user.telegram_flag == 'n' %}
+                        {% if current_user.telegram_flag == n %}
                             <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
                                 <span class="visually-hidden"></span>
                             </span>
-                        {% elif current_user.progress == 'w' %}
+                        {% elif current_user.progress == w %}
                             <span class="position-absolute top-0 start-100 translate-middle p-2 bg-warning text-dark border border-light rounded-circle">
                                 <span class="visually-hidden"></span>
                             </span>
-                        {% elif current_user.progress == 'd' %}
+                        {% elif current_user.progress == d %}
                             <span class="position-absolute top-0 start-100 translate-middle p-2 bg-success border border-light rounded-circle">
                                 <span class="visually-hidden"></span>
                             </span>
