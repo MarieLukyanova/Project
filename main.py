@@ -38,6 +38,7 @@ def profile():
     for el in f.readlines():
         polzovatel = el.split('@')
         if current_user.id == int(polzovatel[0]):
+            print('yes')
             user.tasks = int(polzovatel[2])
             user.scores = int(polzovatel[2]) * 100
             user.progress = (int(polzovatel[2]) / 4) * 100
