@@ -37,10 +37,10 @@ def profile():
     f = open('data/inf_tsk')
     for el in f.readlines():
         polzovatel = el.split('@')
-        if current_user == polzovatel[0]:
+        if current_user.id == int(polzovatel[0]):
             user.tasks = int(polzovatel[2])
             user.scores = int(polzovatel[2]) * 100
-            user.progress = (int(polzovatel[2]) / 4 ) * 100
+            user.progress = (int(polzovatel[2]) / 4) * 100
             user.telegram_flag = polzovatel[3]
             break
     db_sess.commit()
