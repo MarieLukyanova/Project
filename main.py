@@ -34,7 +34,7 @@ def index():
 def profile():
     db_sess = db_session.create_session()
     user = db_sess.query(User).get(current_user.id)
-    f = open('data/inf_tsk.txt')
+    f = open('data/inf_tsk')
     for el in f.readlines():
         polzovatel = el.split('@')
         if current_user == polzovatel[0]:
